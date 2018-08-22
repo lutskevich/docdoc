@@ -1,0 +1,13 @@
+---
+
+- name: add permissions for users
+  lineinfile: 
+    path: /etc/sudoers
+    state: present
+    line: '{{ item.path | basename }} ALL=(root) NOPASSWD:/opt/script.sh'
+    validate: 'visudo -cf %s'
+  become: yes
+  with_items: "{{ users.files }} "
+  tags: 
+    - sudoers
+    - docdoc

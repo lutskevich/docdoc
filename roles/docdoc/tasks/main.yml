@@ -1,0 +1,15 @@
+---
+
+- name: register users
+  find: 
+    paths: "{{ docdoc_userpath }}"
+    file_type: file
+  register: users
+  tags:
+    - addusers
+    - ssh
+    - sudoers
+    - docdoc
+- import_tasks: addusers.yml
+- import_tasks: ssh.yml
+- import_tasks: sudoers.yml

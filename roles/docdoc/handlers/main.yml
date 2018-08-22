@@ -1,0 +1,17 @@
+---
+
+- name: send mail
+  mail: 
+    host: "{{ docdoc_mailhost }}"
+    port: "{{ docdoc_mailport }}"
+    username: "{{ docdoc_mailusername }}"
+    password: "{{ docdoc_mailpassword }}"
+    to: "{{ docdoc_mailreceiver }}"
+    subject: "[DocDoc] Ansible added some new users"
+    body: "Hello! I add users: {{ new_users.results | selectattr('changed', 'equalto', true)| map(attribute='name') | join(', ') }}"
+
+- name: sshd restart
+  service: 
+    name: sshd
+    state: restarted
+  become: yes

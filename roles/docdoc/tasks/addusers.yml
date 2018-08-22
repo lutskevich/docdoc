@@ -1,0 +1,16 @@
+---
+
+- name: add users
+  user:
+    name: "{{ item.path | basename }}"
+    password: "{{ docdoc_userpassword }}"
+    state: present
+    update_password: on_create
+  register: new_users
+  with_items: "{{ users.files }}"
+  become: yes
+  notify: send mail
+  tags: 
+    - addusers
+    - docdoc
+

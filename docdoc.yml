@@ -1,0 +1,6 @@
+---
+
+- name: docdoc playbook
+  hosts: ubuntu
+  roles: 
+    - docdoc
